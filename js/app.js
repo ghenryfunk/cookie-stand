@@ -211,3 +211,42 @@ parisLocation.render();
 // Lima
 
 
+var limaLocation = {
+  location: 'Lima',
+  minHourlyCustomers: 2,
+  maxHourlyCustomers: 16,
+  avgCookiesPerCustomer: 4.6,
+  calculatedCookiesPerHourArray: [],
+  totalCookies: 0,
+
+  getRandomNumberOfCustomersPerHour: function() {
+    var getRandomNumberOfCustomersPerHour = (Math.floor(Math.random() * (this.maxHourlyCustomers - this.minHourlyCustomers + 1)) + this.minHourlyCustomers);
+    return getRandomNumberOfCustomersPerHour;
+  },
+  calculatedCookiesPerHour: function() {
+    for(var i = 0; i < hoursOpenPerDay.length; i++) {
+      var calculatedCookiesPerHour = (Math.floor(this.avgCookiesPerCustomer * this.getRandomNumberOfCustomersPerHour()));
+      this.calculatedCookiesPerHourArray.push(calculatedCookiesPerHour);
+      this.totalCookies += calculatedCookiesPerHour;
+    }
+  },
+  render: function() {
+    var pElLocation = document.getElementById('limaLocation');
+    var liElLocation = document.createElement('li');
+    liElLocation.textContent = `${this.location}`;
+    pElLocation.appendChild(liElLocation);
+    for(var i = 0; i < hoursOpenPerDay.length; i++) {
+      var pElCookies = document.getElementById('limaCookies');
+      var liElCookies = document.createElement('li');
+      liElCookies.textContent = `${hoursOpenPerDay[i]}: ${this.calculatedCookiesPerHourArray[i]} cookies`;
+      pElCookies.appendChild(liElCookies);
+    }
+    var pElTotal = document.getElementById('limaTotal');
+    var liElTotal = document.createElement('li');
+    liElTotal.textContent = `Total: ${this.totalCookies} cookies`;
+    pElTotal.appendChild(liElTotal);
+  }
+};
+
+limaLocation.calculatedCookiesPerHour();
+limaLocation.render();
