@@ -33,24 +33,31 @@ var seattleLocation = {
   // calculate and store the simulated amounts of cookies purchased for each hour at each location using average cookies purchased and the random number of customers generated
   // I need to multiply avgCookiesPerCustomer by the randomNumberOfCustomersPerHour and return the results in an array
   calculatedCookiesPerHour: function() {
-    for(var i = 0; i <= hoursOpenPerDay.length; i++){
+    for(var i = 0; i < hoursOpenPerDay.length; i++){
       var calculatedCookiesPerHour = (Math.floor(this.avgCookiesPerCustomer * this.getRandomNumberOfCustomersPerHour()));
       this.calculatedCookiesPerHourArray.push(calculatedCookiesPerHour);
       this.totalCookies += calculatedCookiesPerHour;
     }
   },
   render: function() { // I need to render the list of 1. hour of the day 2. number of cookies and 3. total at the very bottom
-    for(var i = 0; i <= hoursOpenPerDay.length; i++){
+    var pElLocation = document.getElementById('location');
+    var liElLocation = document.createElement('li');
+    liElLocation.textContent = `${this.location}`;
+    pElLocation.appendChild(liElLocation);
+    for(var i = 0; i < hoursOpenPerDay.length; i++){
       // anchor data to the parent element
-      var pEl = document.getElementById('cookies');
+      var pElCookies = document.getElementById('cookies');
       //create element
-      var liEl = document.createElement('li');
+      var liElCookies = document.createElement('li');
       // give it content
-      liEl.textContent = `${hoursOpenPerDay[i]}: ${this.calculatedCookiesPerHourArray[i]} cookies`;
+      liElCookies.textContent = `${hoursOpenPerDay[i]}: ${this.calculatedCookiesPerHourArray[i]} cookies`;
       // append the child to the parent
-      pEl.appendChild(liEl);
+      pElCookies.appendChild(liElCookies);
     }
-    liEl.textContent = `Total: ${this.totalCookies} cookies`;
+    var pElTotal = document.getElementById('total');
+    var liElTotal = document.createElement('li');
+    liElTotal.textContent = `Total: ${this.totalCookies} cookies`;
+    pElTotal.appendChild(liElTotal);
   }
 
   // Store the results for each location in a seperate array property within the object (calculatedCookiesPerHourArray)
