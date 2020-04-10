@@ -40,13 +40,13 @@ var seattleLocation = {
     }
   },
   render: function() { // I need to render the list of 1. hour of the day 2. number of cookies and 3. total at the very bottom
-    var pElLocation = document.getElementById('location');
+    var pElLocation = document.getElementById('seattleLocation');
     var liElLocation = document.createElement('li');
     liElLocation.textContent = `${this.location}`;
     pElLocation.appendChild(liElLocation);
     for(var i = 0; i < hoursOpenPerDay.length; i++){
       // anchor data to the parent element
-      var pElCookies = document.getElementById('cookies');
+      var pElCookies = document.getElementById('seattleCookies');
       //create element
       var liElCookies = document.createElement('li');
       // give it content
@@ -54,7 +54,7 @@ var seattleLocation = {
       // append the child to the parent
       pElCookies.appendChild(liElCookies);
     }
-    var pElTotal = document.getElementById('total');
+    var pElTotal = document.getElementById('seattleTotal');
     var liElTotal = document.createElement('li');
     liElTotal.textContent = `Total: ${this.totalCookies} cookies`;
     pElTotal.appendChild(liElTotal);
@@ -71,6 +71,7 @@ var seattleLocation = {
 //invoke to calculate --> will still need to invoke to render
 seattleLocation.calculatedCookiesPerHour();
 //invoke the render method
+// Display the values of each array as an UNORDERD LIST in the browser (sales.html)
 seattleLocation.render();
 
 // console.log(seattleLocation.getRandomNumberOfCustomersPerHour());
@@ -80,8 +81,133 @@ seattleLocation.render();
 // each object needs 6 properties: minHourlyCustomers, maxHourlyCustomers, avgCookiesPerCustomer, location, hoursOpen and calculatedCookiesPerHourArray
 // each object will need a method (aka a function) to generate a random number of customers per hour
 
-// Display the values of each array as an UNORDERD LIST in the browser (sales.html)
+var tokyoLocation = {
+  location: 'Tokyo',
+  minHourlyCustomers: 3,
+  maxHourlyCustomers: 24,
+  avgCookiesPerCustomer: 1.2,
+  calculatedCookiesPerHourArray: [],
+  totalCookies: 0,
 
-// console.log(calculatedCookiesPerHour);
-//       // TODO: I NEED TO ADD A SUM VARIABLE!!!!
-//       // return calculatedCookiesPerHour;
+  getRandomNumberOfCustomersPerHour: function() {
+    var getRandomNumberOfCustomersPerHour = (Math.floor(Math.random() * (this.maxHourlyCustomers - this.minHourlyCustomers + 1)) + this.minHourlyCustomers);
+    console.log(getRandomNumberOfCustomersPerHour);
+    return getRandomNumberOfCustomersPerHour;
+  },
+  calculatedCookiesPerHour: function() {
+    for(var i = 0; i < hoursOpenPerDay.length; i++){
+      var calculatedCookiesPerHour = (Math.floor(this.avgCookiesPerCustomer * this.getRandomNumberOfCustomersPerHour()));
+      this.calculatedCookiesPerHourArray.push(calculatedCookiesPerHour);
+      this.totalCookies += calculatedCookiesPerHour;
+    }
+  },
+  render: function() {
+    var pElLocation = document.getElementById('tokyoLocation');
+    var liElLocation = document.createElement('li');
+    liElLocation.textContent = `${this.location}`;
+    pElLocation.appendChild(liElLocation);
+    for(var i = 0; i < hoursOpenPerDay.length; i++){
+      var pElCookies = document.getElementById('tokyoCookies');
+      var liElCookies = document.createElement('li');
+      liElCookies.textContent = `${hoursOpenPerDay[i]}: ${this.calculatedCookiesPerHourArray[i]} cookies`;
+      pElCookies.appendChild(liElCookies);
+    }
+    var pElTotal = document.getElementById('tokyoTotal');
+    var liElTotal = document.createElement('li');
+    liElTotal.textContent = `Total: ${this.totalCookies} cookies`;
+    pElTotal.appendChild(liElTotal);
+  }
+};
+tokyoLocation.calculatedCookiesPerHour();
+tokyoLocation.render();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// DUBAI
+var dubaiLocation = {
+  location: 'Dubai',
+  minHourlyCustomers: 11,
+  maxHourlyCustomers: 38,
+  avgCookiesPerCustomer: 3.7,
+  calculatedCookiesPerHourArray: [],
+  totalCookies: 0,
+
+  getRandomNumberOfCustomersPerHour: function() {
+    var getRandomNumberOfCustomersPerHour = (Math.floor(Math.random() * (this.maxHourlyCustomers - this.minHourlyCustomers + 1)) + this.minHourlyCustomers);
+    console.log(getRandomNumberOfCustomersPerHour);
+    return getRandomNumberOfCustomersPerHour;
+  },
+  calculatedCookiesPerHour: function() {
+    for(var i = 0; i < hoursOpenPerDay.length; i++){
+      var calculatedCookiesPerHour = (Math.floor(this.avgCookiesPerCustomer * this.getRandomNumberOfCustomersPerHour()));
+      this.calculatedCookiesPerHourArray.push(calculatedCookiesPerHour);
+      this.totalCookies += calculatedCookiesPerHour;
+    }
+  },
+  render: function() {
+    var pElLocation = document.getElementById('dubaiLocation');
+    var liElLocation = document.createElement('li');
+    liElLocation.textContent = `${this.location}`;
+    pElLocation.appendChild(liElLocation);
+    for(var i = 0; i < hoursOpenPerDay.length; i++){
+      var pElCookies = document.getElementById('dubaiCookies');
+      var liElCookies = document.createElement('li');
+      liElCookies.textContent = `${hoursOpenPerDay[i]}: ${this.calculatedCookiesPerHourArray[i]} cookies`;
+      pElCookies.appendChild(liElCookies);
+    }
+    var pElTotal = document.getElementById('dubaiTotal');
+    var liElTotal = document.createElement('li');
+    liElTotal.textContent = `Total: ${this.totalCookies} cookies`;
+    pElTotal.appendChild(liElTotal);
+  }
+};
+dubaiLocation.calculatedCookiesPerHour();
+dubaiLocation.render();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// PARIS
+
+var parisLocation = {
+  location: 'Paris',
+  minHourlyCustomers: 20,
+  maxHourlyCustomers: 38,
+  avgCookiesPerCustomer: 2.3,
+  calculatedCookiesPerHourArray: [],
+  totalCookies: 0,
+
+  getRandomNumberOfCustomersPerHour: function() {
+    var getRandomNumberOfCustomersPerHour = (Math.floor(Math.random() *(this.maxHourlyCustomers - this.minHourlyCustomers +1)) + this.minHourlyCustomers);
+    return getRandomNumberOfCustomersPerHour;
+  },
+  calculatedCookiesPerHour: function() {
+    for(var i = 0; i < hoursOpenPerDay.length; i++){
+      var calculatedCookiesPerHour = (Math.floor(this.avgCookiesPerCustomer * this.getRandomNumberOfCustomersPerHour()));
+      this.calculatedCookiesPerHourArray.push(calculatedCookiesPerHour);
+      this.totalCookies += calculatedCookiesPerHour;
+    }
+  },
+  render: function() {
+    var pElLocation = document.getElementById('parisLocation');
+    var liElLocation = document.createElement('li');
+    liElLocation.textContent = `${this.location}`;
+    pElLocation.appendChild(liElLocation);
+    for(var i = 0; i < hoursOpenPerDay.length; i++){
+      var pElCookies = document.getElementById('parisCookies');
+      var liElCookies = document.createElement('li');
+      liElCookies.textContent = `${hoursOpenPerDay[i]}: ${this.calculatedCookiesPerHourArray[i]} cookies`;
+      pElCookies.appendChild(liElCookies);
+    }
+    var pElTotal = document.getElementById('parisTotal');
+    var liElTotal = document.createElement('li');
+    liElTotal.textContent = `Total: ${this.totalCookies} cookies`;
+    pElTotal.appendChild(liElTotal);
+  }
+};
+
+parisLocation.calculatedCookiesPerHour();
+parisLocation.render();
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Lima
+
+
