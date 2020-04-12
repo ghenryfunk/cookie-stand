@@ -15,6 +15,24 @@ console.log('Hello World');
 // global hours variable
 var hoursOpenPerDay = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
+var renderHours = function() {
+  var pElHour = document.getElementById('table');
+  var thElHour = document.createElement('th');
+  pElHour.appendChild(thElHour);
+  var tdElHourBlank = document.createElement('td');
+  thElHour.appendChild(tdElHourBlank);
+  for(var i = 0; i < hoursOpenPerDay.length; i++){
+    var tdElHour = document.createElement('td');
+    tdElHour.textContent = `${hoursOpenPerDay[i]}`;
+    thElHour.appendChild(tdElHour);
+  }
+  var tdEl3 = document.createElement('td');
+  tdEl3.textContent = 'Daily Location Total';
+  thElHour.appendChild(tdEl3);
+};
+
+renderHours();
+
 // create Seattle Object
 // var seattleLocation = {
 //   // put in 6 properties
@@ -259,7 +277,9 @@ function StoreLocation(location, minHourlyCustomers, maxHourlyCustomers, avgCook
   this.avgCookiesPerCustomer = avgCookiesPerCustomer;
   this.calculatedCookiesPerHourArray = [];
   this.totalCookies = 0;
+  this.totalCookiesPerHour = 0;
 }
+
 StoreLocation.prototype.getRandomNumberOfCustomersPerHour = function() {
   var getRandomNumberOfCustomersPerHour = (Math.floor(Math.random() * (this.maxHourlyCustomers - this.minHourlyCustomers + 1)) + this.minHourlyCustomers);
   console.log(getRandomNumberOfCustomersPerHour);
@@ -273,34 +293,56 @@ StoreLocation.prototype.calculatedCookiesPerHour = function() {
   }
 };
 StoreLocation.prototype.renderLocation = function() {
-  var pElLocation = document.getElementById('seattleLocation');
-  var liElLocation = document.createElement('li');
-  liElLocation.textContent = `${this.location}`;
-  pElLocation.appendChild(liElLocation);
-};
-StoreLocation.prototype.renderCookies = function(){
+  var pElLocation = document.getElementById('table');
+  var trElLocation = document.createElement('tr');
+  pElLocation.appendChild(trElLocation);
+  var tdElLocation = document.createElement('td');
+  tdElLocation.textContent = `${this.location}`;
+  trElLocation.appendChild(tdElLocation);
   for(var i = 0; i < hoursOpenPerDay.length; i++){
-    // anchor data to the parent element
-    var pElCookies = document.getElementById('seattleCookies');
-    //create element
-    var liElCookies = document.createElement('li');
-    // give it content
-    liElCookies.textContent = `${hoursOpenPerDay[i]}: ${this.calculatedCookiesPerHourArray[i]} cookies`;
-    // append the child to the parent
-    pElCookies.appendChild(liElCookies);
+    tdElLocation = document.createElement('td');
+    tdElLocation.textContent = `${this.calculatedCookiesPerHourArray[i]}`;
+    trElLocation.appendChild(tdElLocation);
   }
+  // var pElTotal = document.getElementById('total');
+  var tdElTotal = document.createElement('td');
+  tdElTotal.textContent = `${this.totalCookies}`;
+  trElLocation.appendChild(tdElTotal);
+
+  //TODO Must make a function to calculate total cookies per hour!!!
+  // StoreLocation.prototype.calculatedTotalCookiesPerHour = function() {
+  //   for(var i = 0; i < hoursOpenPerDay.length; i++){
+  //     this.totalCookiesPerHour += this.totalCookies(i);
+  //     console.log(this.totalCookiesPerHour);
 };
-StoreLocation.prototype.renderTotal = function(){
-  var pElTotal = document.getElementById('seattleTotal');
-  var liElTotal = document.createElement('li');
-  liElTotal.textContent = `Total: ${this.totalCookies} cookies`;
-  pElTotal.appendChild(liElTotal);
-};
+// StoreLocation.prototype.renderCookies = function(){
+//   // var pElCookies = document.getElementById('table');
+//   // var trElCookies = document.createElement('tr');
+//   // pElCookies.appendChild(trElCookies);
+// };
+// StoreLocation.prototype.renderTotal = function(){
+// };
 
 var seattleStoreLocation = new StoreLocation ('Seattle', 23, 65, 6.3);
 
 seattleStoreLocation.calculatedCookiesPerHour();
 seattleStoreLocation.renderLocation();
-seattleStoreLocation.renderCookies();
-seattleStoreLocation.renderTotal();
+// seattleStoreLocation.renderCookies();
+// seattleStoreLocation.renderTotal();
+
+var tokyoStoreLocation = new StoreLocation ('Tokyo', 3, 24, 1.2);
+tokyoStoreLocation.calculatedCookiesPerHour();
+tokyoStoreLocation.renderLocation();
+
+var dubaiStoreLocation = new StoreLocation ('Dubai', 11, 38, 3.7);
+dubaiStoreLocation.calculatedCookiesPerHour();
+dubaiStoreLocation.renderLocation();
+
+var parisStoreLocation = new StoreLocation ('Paris', 20, 38, 2.3);
+parisStoreLocation.calculatedCookiesPerHour();
+parisStoreLocation.renderLocation();
+
+var limaStoreLocation = new StoreLocation ('Lima', 2, 16, 4.6);
+limaStoreLocation.calculatedCookiesPerHour();
+limaStoreLocation.renderLocation();
 
