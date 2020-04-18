@@ -57,9 +57,9 @@ function renderStores(){
   for(var i = 0; i < storeArray.length; i++){
     var trStore = document.createElement('tr');
     salesTable.appendChild(trStore);
-    var tdStore = document.createElement('td');
-    tdStore.textContent = storeArray[i].location;
-    trStore.appendChild(tdStore);
+    var thStore = document.createElement('th');
+    thStore.textContent = storeArray[i].location;
+    trStore.appendChild(thStore);
     var totalCookies = 0;
 
     for(var j = 0; j < storeArray[i].cookiesPerHourArray.length; j++){
@@ -79,10 +79,10 @@ renderStores();
 function renderFooter(){
   var trFooter = document.createElement('tr');
   salesTable.appendChild(trFooter);
-  var tdLabel = document.createElement('td');
+  var thLabel = document.createElement('th');
   var DailyLocationTotals = 0;
-  tdLabel.textContent = 'Hourly Totals';
-  trFooter.appendChild(tdLabel);
+  thLabel.textContent = 'Hourly Totals';
+  trFooter.appendChild(thLabel);
   
   for(var i = 0; i < hoursOpenPerDay.length; i++){
     var hourlyTotals = 0;
