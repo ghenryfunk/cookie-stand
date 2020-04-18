@@ -2,6 +2,7 @@
 
 var hoursOpenPerDay = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 var storeArray = [];
+var addStore = document.getElementById('addStore');
 
 function Store(location, minCust, maxCust, avgCookies){
   this.location = location;
@@ -9,6 +10,7 @@ function Store(location, minCust, maxCust, avgCookies){
   this.maxCust = maxCust;
   this.avgCookies = avgCookies;
   this.cookiesPerHourArray = [];
+  this.totalCookies = 0;
 
   this.cookiesPerHour();
 
@@ -99,3 +101,40 @@ function renderFooter(){
   trFooter.appendChild(tdDailyLocationTotals);
 }
 renderFooter();
+
+function handleSubmit(event){
+  event.preventDefault();
+
+  var location = event.target.location.value;
+  console.log(location);
+
+  var minCust = event.target.minCust.value;
+  console.log(minCust);
+
+  var maxCust = event.target.maxCust.value;
+  console.log(maxCust);
+
+  var avgCookies = event.target.avgCookies.value;
+  console.log(avgCookies);
+
+  new Store(location, minCust, maxCust, avgCookies);
+
+  event.target.location.value = null;
+  event.target.minCust.value = null;
+  event.target.maxCust.value = null;
+  event.target.avgCookies.value = null;
+
+  document.getElementById('table').innerHTML='';
+  
+  renderHeader();
+  renderStores();
+  renderFooter();
+}
+
+addStore.addEventListener('submit', handleSubmit);
+
+
+// var newSalesTable = document.getElementById('table').deleteRow(0);
+// renderStores();
+// salesTable.appendChild(newSalesTable);
+
