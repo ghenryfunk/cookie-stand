@@ -124,6 +124,7 @@ function handleSubmit(event){
   event.target.maxCust.value = null;
   event.target.avgCookies.value = null;
 
+
   document.getElementById('table').innerHTML='';
   
   renderHeader();
@@ -133,8 +134,4 @@ function handleSubmit(event){
 
 addStore.addEventListener('submit', handleSubmit);
 
-
-// var newSalesTable = document.getElementById('table').deleteRow(0);
-// renderStores();
-// salesTable.appendChild(newSalesTable);
 
